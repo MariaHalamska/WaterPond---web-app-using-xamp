@@ -34,19 +34,24 @@ if($row['last_reset'] !== date('Y-m-d')) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     ?>
+    <div id="lightdark" style="width:100px; height:100px; cursor:pointer;"></div>
 <a href="logout.php">Log out</a>
     <h1>Hello <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-    <p>Today's water intake:</p>
-    <h2><span id="water_today"> <?php echo htmlspecialchars($row['water_today']); ?></span>/<?php echo htmlspecialchars($row['water_goal']); ?> ml
+    
+    <br/>
+    <h2 class="center"><span id="water_today" > <?php echo htmlspecialchars($row['water_today']); ?></span>/<?php echo htmlspecialchars($row['water_goal']); ?> ml
 </h2>
-<div id="choice" style="width:100px; height:100px; cursor:pointer;"></div>
+
     <!--<button class="btn" id="choice">250ml</button><br/>-->
     <br/>
+    <div class="twobuttons">
     <div id="subtractWaterButton" style="width:100px; height:100px; cursor:pointer;"></div>
     <!--<button class="btn" id="subtractWaterButton">-250ml</button>--> 
     <div id="addWaterButton" style="width:100px; height:100px; cursor:pointer;"></div>
+</div>
     <!--<button class="btn" id="addWaterButton">+250ml</button><br/>-->
-   
+    <div class="center">
+   <div id="choice"  style="width:150px; height:200px; cursor:pointer;"></div> </div>
    <script src="lottie.min.js"></script>
     <script src="homepage.js"></script>
    

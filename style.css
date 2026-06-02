@@ -12,27 +12,46 @@
 }
 body {
   font-family: "Google Sans Code", "Arial", sans-serif;
-  background-color: #fff5d4;
+  background-color: #c9eaff;
   margin: 0;
   padding: 20px;
+  transition-duration: 300ms;
 }
+html.dark-mode body {
+  background-color: #181c31;
+  color: #a1587e;
+  transition-duration: 300ms;
+}
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode p,
+html.dark-mode a {
+  color: #a1587e;
+  transition-duration: 300ms;
+}
+
 h1 {
   font-family: "Titan One", "Arial", sans-serif;
   font-size: 8vh;
-  color: #ffd383;
+  color: #6ec0bb;
   transition-duration: 300ms;
 }
+
 h2 {
   font-family: "Titan One", "Arial", sans-serif;
   font-size: 6vh;
-  color: #ffd383;
+  color: #6ec0bb;
+  transition-duration: 300ms;
 }
+
 p {
-  color: #ff9870;
+  color: #6ec0bb;
   font-size: 2.5vh;
+  transition-duration: 300ms;
 }
+
 a {
-  color: #ff9d41;
+  color: #6ec0bb;
   text-decoration: none;
   font-size: 1.2em;
   display: flex;
@@ -40,12 +59,12 @@ a {
   transition-duration: 300ms;
 }
 a:hover {
-  color: #ff6a2f;
+  color: #4ab6ce;
   transition-duration: 300ms;
   text-decoration: underline;
 }
 .container {
-  background-color: #ffeacb;
+  background-color: #ffeacc;
   padding: 0.5vh 5vw 5vh 5vw;
   display: flexbox;
   align-items: center;
@@ -95,6 +114,15 @@ input:focus {
 #login {
   transition-duration: 300ms;
   display: none;
+}
+.twobuttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30%;
+}
+.center {
+  display: flex;
+  justify-content: center;
 }
 @media only screen and (max-width: 1080px) and (orientation: portrait) {
   .container {
