@@ -1,0 +1,128 @@
+.google-sans-code {
+  font-family: "Google Sans Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300; /*Use a value from 300 to 800*/
+  font-style: normal;
+  font-variation-settings: "MONO" 1;
+}
+.titan-one-regular {
+  font-family: "Titan One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-family: "Google Sans Code", "Arial", sans-serif;
+  background-color: #fff5d4;
+  margin: 0;
+  padding: 20px;
+}
+h1 {
+  font-family: "Titan One", "Arial", sans-serif;
+  font-size: 8vh;
+  color: #ffd383;
+  transition-duration: 300ms;
+}
+h2 {
+  font-family: "Titan One", "Arial", sans-serif;
+  font-size: 6vh;
+  color: #ffd383;
+}
+p {
+  color: #ff9870;
+  font-size: 2.5vh;
+}
+a {
+  color: #ff9d41;
+  text-decoration: none;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: flex-end;
+  transition-duration: 300ms;
+}
+a:hover {
+  color: #ff6a2f;
+  transition-duration: 300ms;
+  text-decoration: underline;
+}
+.container {
+  background-color: #ffeacb;
+  padding: 0.5vh 5vw 5vh 5vw;
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 50%;
+  margin: auto;
+}
+input {
+  font-family: "Google Sans Code", "Arial", sans-serif;
+  color: #be3c2b;
+  margin: 2vh 0 4vh 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ff9870;
+  border-radius: 5px;
+  transition-duration: 300ms;
+}
+input:hover {
+  border-color: #ffe9c1;
+  transition-duration: 300ms;
+}
+input:focus {
+  border-color: #fdb26b;
+  outline: none;
+  transition-duration: 300ms;
+}
+.btn {
+  font-family: "Google Sans Code", "Arial", sans-serif;
+  background-color: #fdb26b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition-duration: 300ms;
+  font-size: 2vh;
+}
+.btn:hover {
+  background-color: #ff9870;
+}
+#signup {
+  transition-duration: 300ms;
+
+  display: block;
+}
+#login {
+  transition-duration: 300ms;
+  display: none;
+}
+@media only screen and (max-width: 1080px) and (orientation: portrait) {
+  .container {
+    width: 75%;
+    padding: 0.5vh 8vw 8vh 8vw;
+    height: 80%;
+  }
+  body {
+    margin: 0;
+  }
+  h1 {
+    font-size: 15vw;
+    transition-duration: 300ms;
+  }
+  input {
+    font-size: 2.5vh;
+    margin: 1vh 0 3vh 0;
+  }
+  p {
+    font-size: 5vw;
+  }
+  .btn {
+    padding: 1vh 4vw;
+    border-radius: 10px;
+    font-size: 4vw;
+  }
+  a {
+    font-size: 4vw;
+    transition-duration: 300ms;
+  }
+}
