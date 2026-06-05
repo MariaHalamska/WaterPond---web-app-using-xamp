@@ -12,8 +12,4 @@ catch(Exception $e){
     echo "Error: nie udało się nawiązać połączenia z bazą danych" ;
 }
 
-
-
-
-
 ?>

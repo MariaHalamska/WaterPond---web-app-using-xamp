@@ -16,10 +16,11 @@ if($row['last_reset'] !== date('Y-m-d')) {
 <html lang="pl">    
 <html>
 <head>
+   
     <link rel="icon" type="image/svg+xml" href="src/lilia_light.svg"/>
     <meta charset="UTF-8">
     <title>Strona główna</title>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,14 +42,15 @@ if($row['last_reset'] !== date('Y-m-d')) {
 </div>  
 <a href="logout.php">Log out</a>
 </div>
-    <h1>Hello <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+<div class="hello">
+    <h1  >Hello <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+</div>
     
-    <br/>
-    <h2 class="center" ><span id="water_today" > <?php echo htmlspecialchars($row['water_today']); ?></span>/<?php echo htmlspecialchars($row['water_goal']); ?> ml
-</h2>
-
+    <div class="center">
+    <img id="water_today_img" src="src/numbers/ml_<?php echo $row['water_today']; ?>.svg">
+</div>
     <!--<button class="btn" id="choice">250ml</button><br/>-->
-    <br/>
+    
     <div class="twobuttons">
        <!-- <div class="LottieButton1">-->
     <div id="subtractWaterButton" style="width: 100px; height: 100px; cursor: pointer;"></div>
@@ -64,8 +66,12 @@ if($row['last_reset'] !== date('Y-m-d')) {
    <div id="choice" style="width: 150px; height: 150px; cursor: pointer;"></div> 
 
 </div>
-   <script src="lottie.min.js"></script>
-    <script src="homepage.js"></script>
+<script>
+  const initialWater = <?php echo $row['water_today']; ?>;
+</script>
+   <script src="lottie.min.js?v=1"></script>
+   <script src="count.js?v=1"></script>
+    <script src="homepage.js?v=1"></script>
    
     </body>
 </html>

@@ -4,21 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function sendNotification() {
     if (Notification.permission === "granted") {
-      const currentWater = parseInt(water_today.textContent);
-      new Notification("Czas na wodę! 💧", {
-        body: `Wypiłaś już ${currentWater}ml. Pamiętaj o nawodnieniu!`,
+      const currentWater = parseInt(currentWaterValue);
+      new Notification("Water Time!", {
+        body: `Remember to drink some water!`,
         icon: "src/lilia_light.svg",
       });
     }
   }
 
-  const water_today = document.getElementById("water_today");
+  let currentWaterValue = initialWater;
 
   let cupSize = 250;
   let is500 = false;
   let isAnimating = false;
 
-  let isDarkMode = false;
+  let isDarkMode = localStorage.getItem("theme") === "dark";
   let isThemeAnimating = false;
 
   let notificationsEnabled = localStorage.getItem("notifications") === "true";
@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let notifInterval = null;
   const notifBtn = document.getElementById("notificationButton");
 
+  if (isDarkMode) {
+    document.documentElement.classList.add("dark-mode");
+  }
   notifBtn.title = notificationsEnabled
     ? "Notifications on"
     : "Notifications off";
@@ -39,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   notifAnimation.addEventListener("DOMLoaded", () => {
-    // pokaż właściwą klatkę startową zależnie od zapisanego stanu
     notifAnimation.goToAndStop(notificationsEnabled ? 42 : 0, true);
   });
 
@@ -50,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
       isNotifAnimating = true;
 
       if (!notificationsEnabled) {
-        // włącz
         notifAnimation.playSegments([0, 42], true); // od wyłączonego do włączonego
         const onComplete = () => {
           notifAnimation.removeEventListener("complete", onComplete);
@@ -64,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         notifAnimation.addEventListener("complete", onComplete);
       } else {
-        // wyłącz
         notifAnimation.playSegments([42, 89], true); // od włączonego do wyłączonego
         const onComplete = () => {
           notifAnimation.removeEventListener("complete", onComplete);
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startNotifications() {
     if (notifInterval) clearInterval(notifInterval);
-    notifInterval = setInterval(sendNotification, 10 * 60 * 1000);
+    notifInterval = setInterval(sendNotification, 1 * 60 * 1000);
   }
 
   function stopNotifications() {
@@ -90,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     notifInterval = null;
   }
 
-  // uruchom przy starcie jeśli były włączone
   if (notificationsEnabled) startNotifications();
 
   async function updateWater(newValue) {
-    water_today.textContent = newValue;
+    updateWaterImage(newValue);
+    currentWaterValue = newValue;
 
     await fetch("water.php", {
       method: "POST",
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   lightdarkAnimation.addEventListener("DOMLoaded", () => {
-    lightdarkAnimation.goToAndStop(0, true);
+    lightdarkAnimation.goToAndStop(isDarkMode ? 89 : 0, true);
   });
 
   document.getElementById("choice").addEventListener("click", () => {
@@ -198,7 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("addWaterButton").addEventListener("click", () => {
     addAnimation.goToAndPlay(0, true);
 
-    const currentWater = parseInt(water_today.textContent);
+    const currentWater = parseInt(currentWaterValue);
+    if (currentWater >= 2500) return;
 
     updateWater(currentWater + cupSize);
   });
@@ -206,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("subtractWaterButton")
     .addEventListener("click", () => {
-      const currentWater = parseInt(water_today.textContent);
+      const currentWater = parseInt(currentWaterValue);
 
       if (currentWater <= 0) return;
 
@@ -234,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lightdarkAnimation.goToAndStop(half, true);
         isDarkMode = true;
         document.documentElement.classList.add("dark-mode");
-
+        localStorage.setItem("theme", "dark");
         isThemeAnimating = false;
       };
 
@@ -250,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         isDarkMode = false;
         document.documentElement.classList.remove("dark-mode");
-
+        localStorage.setItem("theme", "light");
         isThemeAnimating = false;
       };
 

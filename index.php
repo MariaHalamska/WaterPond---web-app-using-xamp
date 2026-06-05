@@ -40,7 +40,7 @@ $message = isset($error) ? ($messages[$error] ?? null) : null;
         <input type="email" id="email" name="email" required><br/>
             <p>password: </p>
         <input type="password" id="password" name="password" required><br/>
-        <input class="btn"id="RegisterButton" type="submit" name="signUp" value="Sign Up">
+        <input class="btn" id="RegisterButton" type="submit" name="signUp" value="Sign Up">
     </form>
    <?php if($message): ?>
     <p class="form-message <?= str_contains($error, 'success') ? 'success' : 'error' ?>">
