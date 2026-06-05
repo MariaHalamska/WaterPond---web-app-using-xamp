@@ -21,8 +21,8 @@ exit();
     }
     else{
         $hash=password_hash($password,PASSWORD_DEFAULT);
-           $sql="INSERT INTO users(username, email, password) 
-    VALUES ('$username','$email','$hash')";
+           $sql="INSERT INTO users(username, email, password, reg_date) 
+    VALUES ('$username','$email','$hash', NOW())";
     try{
     mysqli_query($conn, $sql);
     header("Location: index.php?error=register_success&form=signup");

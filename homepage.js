@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startNotifications() {
     if (notifInterval) clearInterval(notifInterval);
-    notifInterval = setInterval(sendNotification, 1 * 60 * 1000);
+    notifInterval = setInterval(sendNotification, 20 * 60 * 1000);
   }
 
   function stopNotifications() {
