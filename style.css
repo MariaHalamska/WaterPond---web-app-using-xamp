@@ -39,7 +39,7 @@ h1 {
 
 h2 {
   font-family: "Titan One", "Arial", sans-serif;
-  font-size: 6vh;
+  font-size: 8vh;
   color: #6ec0bb;
   transition-duration: 300ms;
 }
@@ -118,11 +118,38 @@ input:focus {
 .twobuttons {
   display: flex;
   justify-content: space-between;
-  margin: 0 30%;
+  margin: 0 20%;
+}
+.twobuttons2 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .center {
   display: flex;
   justify-content: center;
+}
+.LottieButton1 {
+  width: 5%;
+  height: 5%;
+}
+
+.dark-mode #addWaterButton {
+  filter: invert(100%) hue-rotate(-25deg) brightness(120%) contrast(80%);
+}
+.dark-mode #subtractWaterButton {
+  filter: invert(100%) hue-rotate(-25deg) brightness(120%) contrast(80%);
+}
+.dark-mode #choice {
+  filter: invert(100%) hue-rotate(-25deg) brightness(120%) contrast(80%);
+}
+.dark-mode #notificationButton {
+  filter: invert(0) hue-rotate(-40deg) brightness(70%) contrast(100%);
 }
 @media only screen and (max-width: 1080px) and (orientation: portrait) {
   .container {
@@ -137,6 +164,7 @@ input:focus {
     font-size: 15vw;
     transition-duration: 300ms;
   }
+
   input {
     font-size: 2.5vh;
     margin: 1vh 0 3vh 0;
@@ -152,5 +180,22 @@ input:focus {
   a {
     font-size: 4vw;
     transition-duration: 300ms;
+  }
+  .twobuttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5%;
+  }
+  #subtractWaterButton {
+    width: 25vw !important;
+    height: 25vw !important;
+  }
+  #addWaterButton {
+    width: 25vw !important;
+    height: 25vw !important;
+  }
+  #choice {
+    width: 40vw !important;
+    height: 40vw !important;
   }
 }

@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+  if ("Notification" in window) {
+    Notification.requestPermission();
+  }
+  function sendNotification() {
+    if (Notification.permission === "granted") {
+      const currentWater = parseInt(water_today.textContent);
+      new Notification("Czas na wodę! 💧", {
+        body: `Wypiłaś już ${currentWater}ml. Pamiętaj o nawodnieniu!`,
+        icon: "src/lilia_light.svg",
+      });
+    }
+  }
+
   const water_today = document.getElementById("water_today");
 
   let cupSize = 250;
@@ -7,6 +20,78 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isDarkMode = false;
   let isThemeAnimating = false;
+
+  let notificationsEnabled = localStorage.getItem("notifications") === "true";
+  let isNotifAnimating = false;
+  let notifInterval = null;
+  const notifBtn = document.getElementById("notificationButton");
+
+  notifBtn.title = notificationsEnabled
+    ? "Notifications on"
+    : "Notifications off";
+
+  const notifAnimation = lottie.loadAnimation({
+    container: document.getElementById("notificationButton"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "src/Fala.json",
+  });
+
+  notifAnimation.addEventListener("DOMLoaded", () => {
+    // pokaż właściwą klatkę startową zależnie od zapisanego stanu
+    notifAnimation.goToAndStop(notificationsEnabled ? 42 : 0, true);
+  });
+
+  document
+    .getElementById("notificationButton")
+    .addEventListener("click", () => {
+      if (isNotifAnimating) return;
+      isNotifAnimating = true;
+
+      if (!notificationsEnabled) {
+        // włącz
+        notifAnimation.playSegments([0, 42], true); // od wyłączonego do włączonego
+        const onComplete = () => {
+          notifAnimation.removeEventListener("complete", onComplete);
+          notifAnimation.goToAndStop(42, true);
+          notificationsEnabled = true;
+          localStorage.setItem("notifications", "true");
+          startNotifications();
+          isNotifAnimating = false;
+          notificationsEnabled = true;
+          notifBtn.title = "Notifications on";
+        };
+        notifAnimation.addEventListener("complete", onComplete);
+      } else {
+        // wyłącz
+        notifAnimation.playSegments([42, 89], true); // od włączonego do wyłączonego
+        const onComplete = () => {
+          notifAnimation.removeEventListener("complete", onComplete);
+          notifAnimation.goToAndStop(89, true);
+          notificationsEnabled = false;
+          localStorage.setItem("notifications", "false");
+          stopNotifications();
+          isNotifAnimating = false;
+          notificationsEnabled = false;
+          notifBtn.title = "Notifications off";
+        };
+        notifAnimation.addEventListener("complete", onComplete);
+      }
+    });
+
+  function startNotifications() {
+    if (notifInterval) clearInterval(notifInterval);
+    notifInterval = setInterval(sendNotification, 10 * 60 * 1000);
+  }
+
+  function stopNotifications() {
+    clearInterval(notifInterval);
+    notifInterval = null;
+  }
+
+  // uruchom przy starcie jeśli były włączone
+  if (notificationsEnabled) startNotifications();
 
   async function updateWater(newValue) {
     water_today.textContent = newValue;
