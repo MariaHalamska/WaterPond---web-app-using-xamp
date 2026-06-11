@@ -1,17 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if ("Notification" in window) {
-    Notification.requestPermission();
-  }
-  function sendNotification() {
-    if (Notification.permission === "granted") {
-      const currentWater = parseInt(currentWaterValue);
-      new Notification("Water Time!", {
-        body: `Remember to drink some water!`,
-        icon: "src/lilia_light.svg",
-      });
-    }
-  }
-
   let currentWaterValue = initialWater;
 
   let cupSize = 250;
@@ -26,9 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let notifInterval = null;
   const notifBtn = document.getElementById("notificationButton");
 
-  if (isDarkMode) {
-    document.documentElement.classList.add("dark-mode");
+  if ("Notification" in window) {
+    Notification.requestPermission();
   }
+  function sendNotification() {
+    if (Notification.permission === "granted") {
+      new Notification("Water Time!", {
+        body: `Remember to drink some water!`,
+        icon: "src/lilia_light.svg",
+      });
+    }
+  }
+
   notifBtn.title = notificationsEnabled
     ? "Notifications on"
     : "Notifications off";
@@ -82,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startNotifications() {
     if (notifInterval) clearInterval(notifInterval);
-    notifInterval = setInterval(sendNotification, 20 * 60 * 1000);
+    notifInterval = setInterval(sendNotification, 1 * 60 * 1000); //co minutę, do zmiany na 30 minut
   }
 
   function stopNotifications() {
@@ -115,6 +111,19 @@ document.addEventListener("DOMContentLoaded", () => {
     path: "src/Plus_Light.json",
   });
 
+  addAnimation.addEventListener("DOMLoaded", () => {
+    addAnimation.goToAndStop(0, true);
+  });
+
+  document.getElementById("addWaterButton").addEventListener("click", () => {
+    addAnimation.goToAndPlay(0, true);
+
+    const currentWater = parseInt(currentWaterValue);
+    if (currentWater >= 2500) return;
+
+    updateWater(currentWater + cupSize);
+  });
+
   let subtractAnimation = lottie.loadAnimation({
     container: document.getElementById("subtractWaterButton"),
     renderer: "svg",
@@ -122,6 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
     autoplay: false,
     path: "src/Minus_Light.json",
   });
+
+  subtractAnimation.addEventListener("DOMLoaded", () => {
+    subtractAnimation.goToAndStop(0, true);
+  });
+
+  document
+    .getElementById("subtractWaterButton")
+    .addEventListener("click", () => {
+      const currentWater = parseInt(currentWaterValue);
+
+      if (currentWater <= 0) return;
+
+      subtractAnimation.goToAndPlay(0, true);
+
+      updateWater(currentWater - cupSize);
+    });
 
   let choiceAnimation = lottie.loadAnimation({
     container: document.getElementById("choice"),
@@ -131,28 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
     path: "src/ml_Light.json",
   });
 
-  const lightdarkAnimation = lottie.loadAnimation({
-    container: document.getElementById("lightdark"),
-    renderer: "svg",
-    loop: false,
-    autoplay: false,
-    path: "src/LightDark.json",
-  });
-
-  addAnimation.addEventListener("DOMLoaded", () => {
-    addAnimation.goToAndStop(0, true);
-  });
-
-  subtractAnimation.addEventListener("DOMLoaded", () => {
-    subtractAnimation.goToAndStop(0, true);
-  });
-
   choiceAnimation.addEventListener("DOMLoaded", () => {
     choiceAnimation.goToAndStop(0, true);
-  });
-
-  lightdarkAnimation.addEventListener("DOMLoaded", () => {
-    lightdarkAnimation.goToAndStop(isDarkMode ? 89 : 0, true);
   });
 
   document.getElementById("choice").addEventListener("click", () => {
@@ -195,26 +200,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("addWaterButton").addEventListener("click", () => {
-    addAnimation.goToAndPlay(0, true);
-
-    const currentWater = parseInt(currentWaterValue);
-    if (currentWater >= 2500) return;
-
-    updateWater(currentWater + cupSize);
+  const lightdarkAnimation = lottie.loadAnimation({
+    container: document.getElementById("lightdark"),
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "src/LightDark.json",
   });
 
-  document
-    .getElementById("subtractWaterButton")
-    .addEventListener("click", () => {
-      const currentWater = parseInt(currentWaterValue);
+  lightdarkAnimation.addEventListener("DOMLoaded", () => {
+    lightdarkAnimation.goToAndStop(isDarkMode ? 89 : 0, true);
+  });
 
-      if (currentWater <= 0) return;
+  if (isDarkMode) {
+    document.documentElement.classList.add("dark-mode");
+  }
 
-      subtractAnimation.goToAndPlay(0, true);
-
-      updateWater(currentWater - cupSize);
-    });
   lightdarkAnimation.addEventListener("DOMLoaded", () => {
     console.log("totalFrames:", lightdarkAnimation.totalFrames);
   });

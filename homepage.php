@@ -6,17 +6,16 @@ $sql = "SELECT water_today, water_goal, last_reset FROM users WHERE username='$u
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
-// reset jeśli ostatni reset był wczoraj lub wcześniej
 if($row['last_reset'] !== date('Y-m-d')) {
     mysqli_query($conn, "UPDATE users SET water_today=0, last_reset=CURDATE() WHERE username='$username'");
     $row['water_today'] = 0;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">    
 <html>
 <head>
-   
     <link rel="icon" type="image/svg+xml" href="src/lilia_light.svg"/>
     <meta charset="UTF-8">
     <title>Strona główna</title>
