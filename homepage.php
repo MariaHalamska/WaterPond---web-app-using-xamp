@@ -13,7 +13,7 @@ if($row['last_reset'] !== date('Y-m-d')) {
 
 ?>
 <!DOCTYPE html>
-<html lang="pl">    
+<html lang="en">    
 <html>
 <head>
     <link rel="icon" type="image/svg+xml" href="src/lilia_light.svg"/>
