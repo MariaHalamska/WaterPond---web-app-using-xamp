@@ -831,6 +831,5 @@
     { "tm": 62, "cm": "StopDark\r\n", "dr": 0 },
     { "tm": 99, "cm": "StartLight", "dr": 0 },
     { "tm": 161, "cm": "StopLight", "dr": 0 }
-  ],
-  "props": {}
+  ]
 }
