@@ -104,6 +104,7 @@ input:focus {
   transition-duration: 300ms;
   font-size: 2vh;
   width: 7vw;
+  min-width: 100px;
 }
 .btn:hover {
   background-color: #ff9870;

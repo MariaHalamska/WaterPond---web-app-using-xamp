@@ -18,7 +18,7 @@ if($row['last_reset'] !== date('Y-m-d')) {
 <head>
     <link rel="icon" type="image/svg+xml" href="src/lilia_light.svg"/>
     <meta charset="UTF-8">
-    <title>Strona główna</title>
+    <title>Homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
