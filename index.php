@@ -11,8 +11,23 @@ $messages = [
     'db_error'         => 'Something went wrong, try again later.',
 ];
 
-$error = $_GET['error'] ?? $_GET['success'] ?? null;
-$message = isset($error) ? ($messages[$error] ?? null) : null;
+if(isset($_GET['error'])) {
+    $error = $_GET['error'];
+} elseif(isset($_GET['success'])) {
+    $error = $_GET['success'];
+} else {
+    $error = null;
+}
+
+if(isset($error)) {
+    if(isset($messages[$error])) {
+        $message = $messages[$error];
+    } else {
+        $message = null;
+    }
+} else {
+    $message = null;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -43,8 +58,15 @@ $message = isset($error) ? ($messages[$error] ?? null) : null;
         <input class="btn" id="RegisterButton" type="submit" name="signUp" value="Sign Up">
     </form>
    <?php if($message): ?>
-    <p class="form-message <?= str_contains($error, 'success') ? 'success' : 'error' ?>">
-        <?= htmlspecialchars($message) ?>
+   <p class="form-message 
+<?php
+if(str_contains($error, 'success')) {
+    echo 'success';
+} else {
+    echo 'error';
+}
+?>">
+        <?php echo htmlspecialchars($message) ?>
     </p>
 <?php endif; ?>
     <p>Already have an account?</p>
@@ -62,8 +84,15 @@ $message = isset($error) ? ($messages[$error] ?? null) : null;
         <input class="btn"id="logInButton" type="submit" name="logIn" value="Log In">
     </form>
     <?php if($message): ?>
-    <p class="form-message <?= str_contains($error, 'success') ? 'success' : 'error' ?>">
-        <?= htmlspecialchars($message) ?>
+    <p class="form-message 
+<?php
+if(str_contains($error, 'success')) {
+    echo 'success';
+} else {
+    echo 'error';
+}
+?>">
+        <?php echo htmlspecialchars($message) ?>
     </p>
 <?php endif; ?>
     <p>Don't have an account?</p>

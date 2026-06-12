@@ -10,7 +10,13 @@ if (formParam) {
   sessionStorage.setItem("activeForm", formParam);
 }
 
-const activeForm = sessionStorage.getItem("activeForm") ?? "signup";
+let activeForm;
+
+if (sessionStorage.getItem("activeForm") !== null) {
+  activeForm = sessionStorage.getItem("activeForm");
+} else {
+  activeForm = "signup";
+}
 
 if (activeForm === "login") {
   login.style.display = "block";

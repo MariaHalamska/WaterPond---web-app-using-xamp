@@ -9,6 +9,7 @@ if(isset($_POST['signUp'])){
 
     $checkEmail="SELECT * FROM users WHERE email='$email'";
     $result=mysqli_query($conn,$checkEmail);
+    
     if(mysqli_num_rows($result)>0){
         header("Location: index.php?error=email_taken&form=signup");
         exit();

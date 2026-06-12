@@ -24,10 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-
-  notifBtn.title = notificationsEnabled
-    ? "Notifications on"
-    : "Notifications off";
+  if (notificationsEnabled) {
+    notifBtn.title = "Notifications on";
+  } else {
+    notifBtn.title = "Notifications off";
+  }
 
   const notifAnimation = lottie.loadAnimation({
     container: document.getElementById("notificationButton"),
@@ -38,7 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   notifAnimation.addEventListener("DOMLoaded", () => {
-    notifAnimation.goToAndStop(notificationsEnabled ? 42 : 0, true);
+    if (notificationsEnabled) {
+      notifAnimation.goToAndStop(42, true);
+    } else {
+      notifAnimation.goToAndStop(0, true);
+    }
   });
 
   document
@@ -209,7 +214,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   lightdarkAnimation.addEventListener("DOMLoaded", () => {
-    lightdarkAnimation.goToAndStop(isDarkMode ? 89 : 0, true);
+    if (isDarkMode) {
+      lightdarkAnimation.goToAndStop(89, true);
+    } else {
+      lightdarkAnimation.goToAndStop(0, true);
+    }
   });
 
   if (isDarkMode) {
