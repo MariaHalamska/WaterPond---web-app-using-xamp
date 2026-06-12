@@ -59,14 +59,7 @@ if(isset($error)) {
         <input class="btn" id="RegisterButton" type="submit" name="signUp" value="Sign Up">
     </form>
    <?php if($message): ?>
-   <p class="form-message 
-<?php
-if(str_contains($error, 'success')) {
-    echo 'success';
-} else {
-    echo 'error';
-}
-?>">
+    <p class="form-message">
         <?php echo htmlspecialchars($message) ?>
     </p>
 <?php endif; ?>
@@ -85,14 +78,7 @@ if(str_contains($error, 'success')) {
         <input class="btn"id="logInButton" type="submit" name="logIn" value="Log In">
     </form>
     <?php if($message): ?>
-    <p class="form-message 
-<?php
-if(str_contains($error, 'success')) {
-    echo 'success';
-} else {
-    echo 'error';
-}
-?>">
+    <p class="form-message">
         <?php echo htmlspecialchars($message) ?>
     </p>
 <?php endif; ?>
